@@ -30,6 +30,11 @@ mjData* mj_data = mj_makeData(mj_model);
 // main function
 int main(int argc, const char** argv)
 {
+    // Check if model loaded successfully
+    if (!mj_model) {
+        mju_error("Load model error: %s", error);
+        return -1;
+    }
     // ini classes
     UIctr uiController(mj_model,mj_data);   // UI control for Mujoco
     MJ_Interface mj_interface(mj_model, mj_data); // data interface for Mujoco

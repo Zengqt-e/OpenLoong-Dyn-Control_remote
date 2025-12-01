@@ -3,15 +3,27 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
-                "/usr/include/eigen3",
-                "/usr/local/cuda/include"
+                "${workspaceFolder}/**", // 保留作为通用后备
+                // --- 根据 CMakeLists.txt 添加的精确路径 ---
+                "${workspaceFolder}/algorithm",
+                "${workspaceFolder}/common",
+                "${workspaceFolder}/math",
+                "${workspaceFolder}/sim_interface",
+                "${workspaceFolder}/third_party/eigen3",
+                "${workspaceFolder}/third_party/pinocchio",
+                "${workspaceFolder}/third_party/jsoncpp",
+                "${workspaceFolder}/third_party/quill",
+                "${workspaceFolder}/third_party/boost",
+                "${workspaceFolder}/third_party/mujoco",
+                "${workspaceFolder}/third_party/qpOASES",
+                "${workspaceFolder}/third_party/urdfdom"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
-            "cStandard": "c23",
-            "cppStandard": "c++23",
-            "intelliSenseMode": "linux-gcc-x64"
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

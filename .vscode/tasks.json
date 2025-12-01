@@ -2,26 +2,39 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Cpp with Cuda's CMake Build",
+            "label": "cmake_configure",
             "type": "shell",
             "command": "cmake",
             "args": [
-                "--build",
+                "-S",
+                "${workspaceFolder}",
+                "-B",
                 "${workspaceFolder}/build",
-                "--config",
-                "Debug" // 确保使用 Debug 构建类型
+                "-DCMAKE_BUILD_TYPE=Debug"
+            ],
+            "detail": "配置 CMake 项目 (Debug)"
+        },
+        {
+            "label": "build_all",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-j4"
             ],
             "options": {
-                "cwd": "${workspaceFolder}"
+                "cwd": "${workspaceFolder}/build"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "Builds the project using CMake and the existing build directory."
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "编译整个 build 目录",
+            "dependsOn": [
+                "cmake_configure"
+            ]
         }
     ]
 }

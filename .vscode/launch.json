@@ -2,37 +2,49 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C/C++: g++ build and debug active file",
+            "name": "(gdb) 调试 Walk MPC (OpenLoong)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            // 假设编译出的可执行文件名为 walk_mpc_wbc，根据 CMakeLists.txt 调整
+            "program": "${workspaceFolder}/build/walk_mpc_wbc", 
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
+            "cwd": "${workspaceFolder}", // 关键：设为根目录以便读取 models/ 文件夹
+            "environment": [
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "${workspaceFolder}/third_party/mujoco/lin_x64:${workspaceFolder}/third_party/qpOASES/lin_x64:${env:LD_LIBRARY_PATH}"
+                }
+            ],
             "externalConsole": false,
             "MIMode": "gdb",
             "setupCommands": [
                 {
-                    "description": "Enable pretty-printing for gdb",
+                    "description": "为 gdb 启用整齐打印",
                     "text": "-enable-pretty-printing",
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++ build active file",
-            "miDebuggerPath": "/usr/bin/gdb"
+            "preLaunchTask": "build_all"
         },
         {
-            "name": "CUDA C++: Debug",
-            "type": "cuda-gdb",
+            "name": "(gdb) 调试当前激活的 Demo",
+            "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/main",
+            // 尝试调试与当前打开的 .cpp 文件同名的 build 下的可执行文件
+            "program": "${workspaceFolder}/build/${fileBasenameNoExtension}",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
+            "cwd": "${workspaceFolder}/build",
+            "environment": [
+                {
+                    "name": "LD_LIBRARY_PATH",
+                    "value": "${workspaceFolder}/third_party/mujoco/lin_x64:${workspaceFolder}/third_party/qpOASES/lin_x64:${env:LD_LIBRARY_PATH}"
+                }
+            ],
             "externalConsole": false,
-            "MIMode": "gdb"
+            "MIMode": "gdb",
+            "preLaunchTask": "build_all"
         }
     ]
 }
